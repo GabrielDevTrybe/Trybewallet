@@ -18,7 +18,7 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-  return { ...state.user.email };
+  return { email: state.user.email };
 }
 
 export default connect(mapStateToProps)(Header);

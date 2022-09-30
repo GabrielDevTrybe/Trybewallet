@@ -40,7 +40,8 @@ class Login extends React.Component {
 
   handleSubmit = () => {
     const { history, dispatch } = this.props;
-    const action = { type: EMAIL, payload: { ...this.state } };
+    const { email } = this.state;
+    const action = { type: EMAIL, payload: email };
     dispatch(action);
     history.push('/carteira');
   };
