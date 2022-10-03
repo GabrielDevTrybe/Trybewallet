@@ -1,71 +1,56 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { EMAIL } from '../redux/actions/index';
+import { login } from '../redux/actions/index';
 
 class Login extends React.Component {
   state = {
-    submitDisable: true,
     email: '',
-    handleChangePassword: '',
+    password: '',
+    submitDisable: true,
+  };
+
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({ [name]: value }, () => this.handleValidate());
   };
 
   handleValidate = () => {
-    const { email, handleChangePassword } = this.state;
-    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    const maxLength = 6;
-    if (regex.test(email) && handleChangePassword.length >= maxLength) {
-      return this.setState({
-        submitDisable: false,
-      });
-    }
-    return this.setState({
-      submitDisable: true,
-    });
-  };
-
-  handleChangeEm = ({ target }) => {
-    const { value } = target;
-    this.setState({
-      email: value,
-    }, () => this.handleValidate());
-  };
-
-  handleChangePass = ({ target }) => {
-    const { value } = target;
-    this.setState({
-      handleChangePassword: value,
-    }, () => this.handleValidate());
+    const { email, password } = this.state;
+    const regex = /\S+@\S+\.\S+/;
+    const passLength = 6;
+    const verifyEmail = email && regex.test(email);
+    const verifyPassword = password.length >= passLength;
+    this.setState({ submitDisable: !(verifyEmail && verifyPassword) });
   };
 
   handleSubmit = () => {
     const { history, dispatch } = this.props;
     const { email } = this.state;
-    const action = { type: EMAIL, payload: email };
-    dispatch(action);
+    dispatch(login(email));
     history.push('/carteira');
   };
 
   render() {
-    const { submitDisable, handleChangeEmail, handleChangePassword } = this.state;
+    const { submitDisable } = this.state;
     return (
       <div>
-        <label htmlFor="Login">
+        <label htmlFor="email">
           Email:
           <input
+            name="email"
             data-testid="email-input"
-            type="text"
-            onChange={ this.handleChangeEm }
-            value={ handleChangeEmail }
+            type="email"
+            onChange={ this.handleChange }
           />
         </label>
-        <label htmlFor="Login">
+        <label htmlFor="password">
           Password:
           <input
+            name="password"
             data-testid="password-input"
             type="password"
-            onChange={ this.handleChangePass }
-            value={ handleChangePassword }
+            onChange={ this.handleChange }
           />
         </label>
         <button
@@ -83,6 +68,8 @@ class Login extends React.Component {
 export default connect()(Login);
 
 Login.propTypes = {
-  history: PropTypes.isRequired,
-  dispatch: PropTypes.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };

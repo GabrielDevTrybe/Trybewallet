@@ -3,7 +3,12 @@ const WALLET_FORM = 'WALLET_FORM';
 const WALLET_PRODUCTS = 'WALLET_PRODUCTS';
 const EMAIL = 'EMAIL';
 
-export const walletProducts = (payload) => ({
+export const login = (loginPayload) => ({
+  type: EMAIL,
+  payload: loginPayload,
+});
+
+export const walletProductsPayload = (payload) => ({
   type: WALLET_PRODUCTS,
   payload,
 });

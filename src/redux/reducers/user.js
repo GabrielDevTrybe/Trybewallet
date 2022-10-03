@@ -6,9 +6,6 @@ const INITIAL_STATE_USER = {
 };
 
 function userReducer(state = INITIAL_STATE_USER, action) {
-  const test = { ...state, email: { ...action.payload } };
-  console.log(test);
-
   switch (action.type) {
   case EMAIL:
     return { ...state, email: action.payload };
