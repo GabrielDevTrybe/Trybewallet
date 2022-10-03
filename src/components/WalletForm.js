@@ -6,9 +6,9 @@ import requestApi from '../services/requestApi';
 
 class WalletForm extends Component {
   state = {
-    despesa: '',
-    describe: '',
-    moeda: 'USD',
+    value: '',
+    description: '',
+    currency: 'USD',
     method: 'Dinheiro',
     tag: 'Alimentação',
   };
@@ -34,26 +34,26 @@ class WalletForm extends Component {
 
   handleSubmit = async () => {
     const { dispatch, expenses } = this.props;
-    const theApi = await requestApi();
-    const { despesa, describe, moeda, method, tag } = this.state;
+    const exchangeRates = await requestApi();
+    const { value, description, currency, method, tag } = this.state;
     const expense = {
-      despesa,
-      describe,
+      value,
+      description,
       method,
       tag,
-      moeda,
+      currency,
       id: expenses.length,
-      theApi,
+      exchangeRates,
     };
 
     await dispatch(walletExpense(expense));
-    this.setState({ despesa: '', describe: '' });
+    this.setState({ value: '', description: '' });
   };
 
   render() {
     console.log(this.props);
     const arrayDropDown = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-    const { despesa, describe, moeda, method, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     const { currencies, loading } = this.props;
 
     if (!loading) {
@@ -65,34 +65,34 @@ class WalletForm extends Component {
         <form>
 
           <label
-            htmlFor="despesa"
+            htmlFor="value"
           >
             despesa
             <input
-              name="despesa"
+              name="value"
               data-testid="value-input"
               type="text"
-              value={ despesa }
+              value={ value }
               onChange={ this.handleChange }
             />
           </label>
 
-          <label htmlFor="describe">
+          <label htmlFor="description">
             describe
             <input
               data-testid="description-input"
-              name="describe"
-              value={ describe }
+              name="description"
+              value={ description }
               onChange={ this.handleChange }
             />
           </label>
 
-          <label htmlFor="moeda">
+          <label htmlFor="currency">
             moeda
             <select
-              name="moeda"
+              name="currency"
               data-testid="currency-input"
-              value={ moeda }
+              value={ currency }
               onChange={ this.handleChange }
             >
               {currencies.map((e, index) => (
@@ -101,10 +101,10 @@ class WalletForm extends Component {
             </select>
           </label>
 
-          <label htmlFor="pagamento">
+          <label htmlFor="method">
             pagamento
             <select
-              name="pagamento"
+              name="method"
               data-testid="method-input"
               value={ method }
               onChange={ this.handleChange }
@@ -115,9 +115,9 @@ class WalletForm extends Component {
             </select>
           </label>
 
-          <label htmlFor="dropdown">
+          <label htmlFor="tag">
             <select
-              name="dropdown"
+              name="tag"
               data-testid="tag-input"
               value={ tag }
               onChange={ this.handleChange }

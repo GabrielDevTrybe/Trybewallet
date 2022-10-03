@@ -7,8 +7,8 @@ class Header extends Component {
     const { expenses } = this.props;
     let sum = 0;
     expenses.forEach((e) => {
-      const convert = e.theApi[e.moeda].ask;
-      sum += e.despesa * convert;
+      const convert = e.exchangeRates[e.currency].ask;
+      sum += e.value * convert;
     });
     return sum.toFixed(2);
   };

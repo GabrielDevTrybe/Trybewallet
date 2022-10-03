@@ -6,10 +6,9 @@ const INITIAL_STATE_WALLET = {
   loading: false,
   currencies: [],
   expenses: [],
-  despesa: '',
 };
 
-function walletReducer(state = INITIAL_STATE_WALLET, action) {
+function wallet(state = INITIAL_STATE_WALLET, action) {
   switch (action.type) {
   case WALLET_PRODUCTS:
     return {
@@ -28,4 +27,4 @@ function walletReducer(state = INITIAL_STATE_WALLET, action) {
   }
 }
 
-export default walletReducer;
+export default wallet;
