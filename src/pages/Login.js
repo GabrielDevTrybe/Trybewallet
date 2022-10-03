@@ -5,22 +5,23 @@ import { login } from '../redux/actions/index';
 
 class Login extends React.Component {
   state = {
+    submitDisable: true,
     email: '',
     password: '',
-    submitDisable: true,
   };
 
   handleChange = ({ target }) => {
     const { name, value } = target;
+
     this.setState({ [name]: value }, () => this.handleValidate());
   };
 
   handleValidate = () => {
     const { email, password } = this.state;
     const regex = /\S+@\S+\.\S+/;
-    const passLength = 6;
+    const passLength = 5;
     const verifyEmail = email && regex.test(email);
-    const verifyPassword = password.length >= passLength;
+    const verifyPassword = password.length > passLength;
     this.setState({ submitDisable: !(verifyEmail && verifyPassword) });
   };
 
@@ -40,7 +41,7 @@ class Login extends React.Component {
           <input
             name="email"
             data-testid="email-input"
-            type="email"
+            type="text"
             onChange={ this.handleChange }
           />
         </label>

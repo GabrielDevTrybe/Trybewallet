@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { walletProductsPayload, walletExpense } from '../redux/actions';
+import { walletProducts, walletExpense } from '../redux/actions';
 import requestApi from '../services/requestApi';
 
 class WalletForm extends Component {
@@ -23,7 +23,8 @@ class WalletForm extends Component {
     const data = await response.json();
     const { dispatch } = this.props;
     const removeUSDT = Object.keys(data).filter((curr) => curr !== 'USDT');
-    dispatch(walletProductsPayload(removeUSDT));
+    dispatch(walletProducts(removeUSDT));
+    console.log(this.props);
   };
 
   handleChange = ({ target }) => {
@@ -50,6 +51,7 @@ class WalletForm extends Component {
   };
 
   render() {
+    console.log(this.props);
     const arrayDropDown = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     const { despesa, describe, moeda, method, tag } = this.state;
     const { currencies, loading } = this.props;

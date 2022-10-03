@@ -1,14 +1,13 @@
-// Coloque aqui suas actions
 const WALLET_FORM = 'WALLET_FORM';
 const WALLET_PRODUCTS = 'WALLET_PRODUCTS';
 const EMAIL = 'EMAIL';
 
-export const login = (loginPayload) => ({
+export const login = (payload) => ({
   type: EMAIL,
-  payload: loginPayload,
+  payload,
 });
 
-export const walletProductsPayload = (payload) => ({
+export const walletProducts = (payload) => ({
   type: WALLET_PRODUCTS,
   payload,
 });

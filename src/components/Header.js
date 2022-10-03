@@ -1,30 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import WalletForm from './WalletForm';
 
 class Header extends Component {
   totalField = () => {
     const { expenses } = this.props;
     let sum = 0;
     expenses.forEach((e) => {
-      const converter = e.theApi[e.moeda].ask;
-      sum += e.despesa * converter;
+      const convert = e.theApi[e.moeda].ask;
+      sum += e.despesa * convert;
     });
     return sum.toFixed(2);
   };
 
   render() {
     const { email } = this.props;
+    console.log(this.props);
     return (
       <div>
         <h2 data-testid="email-field">{ email }</h2>
         <p data-testid="total-field">{ this.totalField() }</p>
         <p data-testid="header-currency-field">BRL</p>
-
-        <section>
-          <WalletForm />
-        </section>
 
       </div>
     );
