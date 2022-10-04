@@ -26,8 +26,8 @@ class Table extends Component {
           <tbody>
 
             {expenses.map((expense) => {
-              const { id, value, description,
-                currency, method, tag, exchangeRates } = expense;
+              const { value, description,
+                currency, method, tag, exchangeRates, id } = expense;
               const exchangeQuote = Number(exchangeRates[currency].ask);
               const conversion = exchangeQuote * value;
               const currencyName = (exchangeRates[currency].name);
