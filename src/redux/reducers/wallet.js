@@ -1,6 +1,6 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
-import { WALLET_FORM, WALLET_PRODUCTS } from '../actions';
+import { WALLET_FORM, WALLET_PRODUCTS, DELETE } from '../actions';
 
 const INITIAL_STATE_WALLET = {
   loading: false,
@@ -21,6 +21,11 @@ function wallet(state = INITIAL_STATE_WALLET, action) {
       ...state,
       expenses: [...state.expenses, action.payload],
 
+    };
+  case DELETE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((item) => item.id !== action.id),
     };
   default:
     return state;

@@ -1,6 +1,7 @@
 const WALLET_FORM = 'WALLET_FORM';
 const WALLET_PRODUCTS = 'WALLET_PRODUCTS';
 const EMAIL = 'EMAIL';
+const DELETE = 'DELETE';
 
 export const login = (payload) => ({
   type: EMAIL,
@@ -17,4 +18,9 @@ export const walletExpense = (expenses) => ({
   payload: expenses,
 });
 
-export { WALLET_PRODUCTS, EMAIL, WALLET_FORM };
+export const deleteItem = (payload) => ({
+  type: DELETE,
+  id: payload,
+});
+
+export { WALLET_PRODUCTS, EMAIL, WALLET_FORM, DELETE };
